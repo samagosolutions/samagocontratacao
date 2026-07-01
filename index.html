@@ -500,10 +500,78 @@
       </label>
     </div>
 
-    <!-- SEÇÃO 4: ASSINATURA -->
+    <!-- SEÇÃO 4: LOGOMARCA -->
     <div class="secao">
       <div class="secao-titulo">
         <div class="secao-num">4</div>
+        <h2>Logomarca <span style="font-size:10px;color:var(--cinza-texto);font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></h2>
+      </div>
+      <div class="campo">
+        <label>Envie sua logomarca</label>
+        <div id="logo-dropzone" onclick="document.getElementById('logo-input').click()" style="border:1.5px dashed var(--cinza-borda);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cinza-medio)">
+          <div id="logo-placeholder">
+            <div style="font-size:28px;margin-bottom:8px">🖼️</div>
+            <div style="font-size:13px;color:var(--cinza-texto)">Clique para enviar sua logo</div>
+            <div style="font-size:11px;color:#555;margin-top:4px">PNG, JPG ou SVG · Caso não tenha, deixe em branco</div>
+          </div>
+          <img id="logo-preview" src="" alt="Preview" style="display:none;max-height:80px;max-width:200px;margin:0 auto;border-radius:6px;">
+        </div>
+        <input type="file" id="logo-input" accept="image/*" style="display:none" onchange="previewLogo(this)">
+      </div>
+    </div>
+
+    <!-- SEÇÃO 5: PAGAMENTO -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">5</div>
+        <h2>Pagamento</h2>
+      </div>
+      <p style="font-size:13px;color:var(--cinza-texto);margin-bottom:18px;line-height:1.6">Escolha como deseja efetuar o pagamento de <b style="color:var(--ouro)">R$ 897,00</b>. Após o pagamento confirmado, seu projeto entra em produção.</p>
+
+      <!-- OPÇÃO CARTÃO -->
+      <div style="background:var(--cinza-medio);border:1.5px solid var(--cinza-borda);border-radius:10px;padding:18px 20px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <span style="font-size:20px;">💳</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--branco)">Cartão de Crédito Parcelado</div>
+            <div style="font-size:11px;color:var(--cinza-texto)">Sem juros · Parcelamento disponível</div>
+          </div>
+        </div>
+        <a href="https://mpago.la/32wrcpx" target="_blank" style="display:block;background:var(--ouro);color:var(--preto);text-align:center;padding:12px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#E2C06D'" onmouseout="this.style.background='var(--ouro)'">
+          Pagar com Cartão →
+        </a>
+      </div>
+
+      <!-- OPÇÃO PIX -->
+      <div style="background:var(--cinza-medio);border:1.5px solid var(--cinza-borda);border-radius:10px;padding:18px 20px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:20px;">⚡</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--branco)">PIX</div>
+            <div style="font-size:11px;color:var(--cinza-texto)">Pagamento instantâneo · Aprovação imediata</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <img src="data:image/png;base64,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" alt="QR Code PIX" style="width:150px;height:150px;border-radius:8px;border:2px solid var(--cinza-borda);">
+          <div style="width:100%;">
+            <div style="font-size:11px;color:var(--cinza-texto);margin-bottom:6px;text-align:center;">ou copie o código PIX abaixo</div>
+            <div style="display:flex;gap:8px;align-items:stretch;">
+              <div id="pix-code" style="flex:1;background:var(--preto);border:1px solid var(--cinza-borda);border-radius:8px;padding:10px 12px;font-size:10px;color:#888;word-break:break-all;line-height:1.5;font-family:monospace;">00020126580014br.gov.bcb.pix0136da1c2eef-4238-4956-a7ff-fa3d51ba84a35204000053039865406897.005802BR5916Samago Solutions6009Sao Paulo62240520daqr24907033846589086304D8FE</div>
+              <button onclick="copiarPix()" type="button" style="background:var(--ouro);color:var(--preto);border:none;border-radius:8px;padding:0 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;" id="btn-copiar">Copiar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;padding:12px 14px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:8px;font-size:11.5px;color:var(--ouro-claro);line-height:1.6;">
+        💡 Após efetuar o pagamento, clique em <b>Confirmar Contratação</b> abaixo. Você receberá confirmação por WhatsApp em até 1 hora útil.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 6: ASSINATURA -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">6</div>
         <h2>Confirmação e Assinatura</h2>
       </div>
       <div class="assinatura-campo">
@@ -538,6 +606,31 @@
 </footer>
 
 <script>
+function previewLogo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('logo-placeholder').style.display = 'none';
+    const img = document.getElementById('logo-preview');
+    img.src = e.target.result;
+    img.style.display = 'block';
+    document.getElementById('logo-dropzone').style.borderColor = 'var(--ouro)';
+    document.getElementById('logo-dropzone').style.background = 'rgba(201,168,76,0.05)';
+  };
+  reader.readAsDataURL(file);
+}
+
+function copiarPix() {
+  const codigo = document.getElementById('pix-code').textContent.trim();
+  navigator.clipboard.writeText(codigo).then(() => {
+    const btn = document.getElementById('btn-copiar');
+    btn.textContent = '✓ Copiado';
+    btn.style.background = '#4caf50';
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.background = 'var(--ouro)'; }, 2500);
+  });
+}
+
 function selecionarPlano(el, valor) {
   document.querySelectorAll('.plano-card').forEach(c => c.classList.remove('selecionado'));
   el.classList.add('selecionado');
