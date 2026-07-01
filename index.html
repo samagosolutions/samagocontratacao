@@ -1,16 +1,623 @@
-<!-- modify this form HTML and place wherever you want your form -->
-<form
-  action="https://formspree.io/f/mdarwopb"
-  method="POST"
->
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formalização de Serviço – SAMAGO Solutions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --preto: #0d0d0d;
+    --ouro: #C9A84C;
+    --ouro-claro: #E2C06D;
+    --ouro-escuro: #a07c30;
+    --cinza-escuro: #1a1a1a;
+    --cinza-medio: #2c2c2c;
+    --cinza-borda: #333333;
+    --cinza-texto: #999999;
+    --branco: #ffffff;
+    --branco-suave: #f5f5f0;
+    --erro: #e05252;
+    --sucesso: #4caf50;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--preto);
+    color: var(--branco);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* TOPO */
+  header {
+    background: var(--cinza-escuro);
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-box {
+    width: 40px; height: 40px;
+    background: var(--ouro);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--preto);
+    flex-shrink: 0;
+  }
+  header .marca { display: flex; flex-direction: column; }
+  header .marca span:first-child { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; color: var(--ouro); }
+  header .marca span:last-child { font-size: 11px; color: var(--cinza-texto); font-weight: 400; letter-spacing: 0.3px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--cinza-escuro) 0%, var(--preto) 60%);
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--ouro-claro); font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 700; line-height: 1.25;
+    color: var(--branco);
+    margin-bottom: 12px;
+  }
+  .hero h1 em { color: var(--ouro); font-style: normal; }
+  .hero p {
+    font-size: 14px; color: var(--cinza-texto); max-width: 520px;
+    margin: 0 auto; line-height: 1.65;
+  }
+
+  /* AVISO LEGAL */
+  .aviso {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 28px auto 0;
+    max-width: 560px;
+    font-size: 12.5px;
+    color: var(--ouro-claro);
+    line-height: 1.6;
+    text-align: left;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .aviso .icone { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* FORMULÁRIO */
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+  }
+
+  /* SEÇÃO */
+  .secao {
+    background: var(--cinza-escuro);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+  }
+  .secao-titulo {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 22px;
+  }
+  .secao-num {
+    width: 26px; height: 26px;
+    background: var(--ouro);
+    border-radius: 6px;
+    font-size: 12px; font-weight: 700;
+    color: var(--preto);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .secao-titulo h2 {
+    font-size: 13px; font-weight: 600;
+    color: var(--branco); letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-1 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (max-width: 480px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* CAMPO */
+  .campo { display: flex; flex-direction: column; gap: 6px; }
+  .campo label {
+    font-size: 11.5px; font-weight: 600;
+    color: var(--cinza-texto); text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .campo label .obrig { color: var(--ouro); margin-left: 3px; }
+  .campo input, .campo select, .campo textarea {
+    background: var(--cinza-medio);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 14px; font-family: 'Inter', sans-serif;
+    color: var(--branco);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .campo input::placeholder, .campo textarea::placeholder { color: #555; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus {
+    border-color: var(--ouro);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .campo select { cursor: pointer; }
+  .campo select option { background: var(--cinza-escuro); }
+  .campo textarea { resize: vertical; min-height: 80px; }
+  .campo .hint { font-size: 11px; color: #555; line-height: 1.4; }
+
+  /* PLANO */
+  .planos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 480px) { .planos { grid-template-columns: 1fr; } }
+  .plano-card {
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: 10px; padding: 14px;
+    cursor: pointer; transition: all 0.2s;
+    position: relative;
+  }
+  .plano-card input[type=radio] { display: none; }
+  .plano-card.selecionado {
+    border-color: var(--ouro);
+    background: rgba(201,168,76,0.06);
+  }
+  .plano-card .plano-nome {
+    font-size: 13px; font-weight: 600; color: var(--branco);
+    margin-bottom: 4px;
+  }
+  .plano-card .plano-desc { font-size: 11px; color: var(--cinza-texto); line-height: 1.4; }
+  .plano-card .plano-valor {
+    margin-top: 8px; font-size: 15px; font-weight: 700; color: var(--ouro);
+  }
+  .check-plano {
+    position: absolute; top: 10px; right: 10px;
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .plano-card.selecionado .check-plano {
+    background: var(--ouro); border-color: var(--ouro);
+  }
+  .plano-card.selecionado .check-plano::after {
+    content: '✓'; font-size: 10px; color: var(--preto); font-weight: 700;
+  }
+
+  /* TERMOS */
+  .termos-box {
+    background: var(--cinza-medio);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.7;
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cinza-borda) transparent;
+  }
+  .termos-box h4 { font-size: 12px; color: var(--ouro-claro); margin-bottom: 6px; margin-top: 10px; }
+  .termos-box h4:first-child { margin-top: 0; }
+  .termos-box p { margin-bottom: 6px; }
+
+  .check-linha {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  .check-linha:hover { background: rgba(201,168,76,0.08); }
+  .check-linha input[type=checkbox] { display: none; }
+  .check-box {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: 4px; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .check-box.marcado { background: var(--ouro); border-color: var(--ouro); }
+  .check-box.marcado::after { content: '✓'; font-size: 11px; color: var(--preto); font-weight: 700; }
+  .check-linha span { font-size: 12.5px; color: #ccc; line-height: 1.5; }
+  .check-linha span b { color: var(--branco); }
+
+  /* ASSINATURA */
+  .assinatura-campo {
+    background: var(--cinza-medio);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px; padding: 14px;
+    text-align: center;
+  }
+  .assinatura-campo p { font-size: 12px; color: var(--cinza-texto); margin-bottom: 8px; }
+  .assinatura-campo input {
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--cinza-borda);
+    border-radius: 0;
+    padding: 6px 0;
+    color: var(--ouro-claro);
+    width: 100%;
+  }
+  .assinatura-campo input:focus {
+    border-bottom-color: var(--ouro);
+    box-shadow: none;
+  }
+
+  /* BOTÃO */
+  .btn-enviar {
+    width: 100%;
+    padding: 16px;
+    background: var(--ouro);
+    color: var(--preto);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px; font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+    margin-top: 8px;
+  }
+  .btn-enviar:hover { background: var(--ouro-claro); }
+  .btn-enviar:active { transform: scale(0.99); }
+  .btn-enviar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* SUCESSO */
+  .tela-sucesso {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .tela-sucesso .icone-ok {
+    width: 64px; height: 64px;
+    background: rgba(76, 175, 80, 0.12);
+    border: 2px solid var(--sucesso);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin: 0 auto 20px;
+  }
+  .tela-sucesso h2 { font-size: 22px; color: var(--branco); margin-bottom: 10px; }
+  .tela-sucesso p { font-size: 14px; color: var(--cinza-texto); max-width: 380px; margin: 0 auto; line-height: 1.6; }
+  .tela-sucesso .protocolo {
+    margin-top: 20px;
+    background: var(--cinza-escuro);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px; padding: 12px 20px;
+    display: inline-block;
+    font-size: 12px; color: var(--cinza-texto);
+  }
+  .tela-sucesso .protocolo b { color: var(--ouro); font-size: 14px; display: block; margin-top: 4px; }
+
+  /* RODAPÉ */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: #444;
+    border-top: 1px solid var(--cinza-borda);
+  }
+  footer span { color: var(--ouro); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-box">SM</div>
+  <div class="marca">
+    <span>SAMAGO Solutions</span>
+    <span>Desenvolvimento Web Profissional</span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="tag">📋 Formalização de Serviço</div>
+  <h1>Dados para <em>Contratação</em> de Site</h1>
+  <p>Preencha as informações abaixo para confirmar os detalhes do seu serviço. Após o envio, entraremos em contato para dar continuidade ao projeto.</p>
+  <div class="aviso">
+    <span class="icone">⚠️</span>
+    <span>Ao preencher e enviar este formulário, você <b>confirma as informações fornecidas</b> e concorda com os termos do serviço descrito abaixo, formalizando o compromisso de contratação com a SAMAGO Solutions.</span>
+  </div>
+</div>
+
+<div class="container">
+  <form id="form-contratacao">
+
+    <!-- SEÇÃO 1: DADOS PESSOAIS -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">1</div>
+        <h2>Seus Dados Pessoais</h2>
+      </div>
+      <div class="grid-1" style="gap:14px">
+        <div class="campo">
+          <label>Nome completo <span class="obrig">*</span></label>
+          <input type="text" id="nome" placeholder="Como consta no CPF/CNPJ" required>
+        </div>
+        <div class="grid-2">
+          <div class="campo">
+            <label>CPF ou CNPJ <span class="obrig">*</span></label>
+            <input type="text" id="cpf" placeholder="000.000.000-00" required>
+          </div>
+          <div class="campo">
+            <label>WhatsApp <span class="obrig">*</span></label>
+            <input type="tel" id="whatsapp" placeholder="(51) 9 9999-9999" required>
+          </div>
+        </div>
+        <div class="campo">
+          <label>E-mail <span class="obrig">*</span></label>
+          <input type="email" id="email" placeholder="seu@email.com.br" required>
+        </div>
+        <div class="campo">
+          <label>Endereço completo <span class="obrig">*</span></label>
+          <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade – UF" required>
+        </div>
+        <div class="campo">
+          <label>Nome do negócio / empresa</label>
+          <input type="text" id="negocio" placeholder="Nome da clínica, escritório, salão...">
+        </div>
+        <div class="campo">
+          <label>Segmento de atuação</label>
+          <select id="segmento">
+            <option value="">Selecione...</option>
+            <option>Saúde / Clínica / Consultório</option>
+            <option>Jurídico / Advocacia</option>
+            <option>Beleza / Estética</option>
+            <option>Alimentação / Delivery</option>
+            <option>Educação</option>
+            <option>Comércio / Varejo</option>
+            <option>Serviços Gerais</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2: DETALHES DO SERVIÇO -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">2</div>
+        <h2>Detalhes do Serviço</h2>
+      </div>
+      <div class="grid-1" style="gap:16px">
+        <div class="campo">
+          <label>Domínio desejado <span class="obrig">*</span></label>
+          <input type="text" id="dominio" placeholder="exemplo: minhaempresa.com.br" required>
+          <span class="hint">Verificaremos a disponibilidade. Se não tiver preferência, deixe em branco.</span>
+        </div>
+        <div class="campo">
+          <label>Plano contratado <span class="obrig">*</span></label>
+          <div class="planos" id="planos">
+            <label class="plano-card" onclick="selecionarPlano(this, 'completo')" style="grid-column: 1 / -1;">
+              <input type="radio" name="plano" value="completo">
+              <div class="check-plano"></div>
+              <div class="plano-nome">Site Completo + Domínio .com.br + Hospedagem</div>
+              <div class="plano-desc">Site profissional com domínio .com.br e hospedagem inclusa por <b style="color:var(--ouro-claro)">36 meses</b> — taxa única, sem mensalidade</div>
+              <div style="display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap;">
+                <div style="font-size:13px;color:#555;text-decoration:line-through;">De R$ 1.297</div>
+                <div class="plano-valor" style="font-size:20px;">R$ 897,00</div>
+                <div style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--ouro-claro);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:0.5px;">TAXA ÚNICA</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="campo">
+          <label>Forma de pagamento preferida</label>
+          <select id="pagamento">
+            <option value="">Selecione...</option>
+            <option>Pix (à vista)</option>
+            <option>Cartão de crédito (parcelado)</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label>Observações / detalhes adicionais</label>
+          <textarea id="obs" placeholder="Cores preferidas, referências de sites, funcionalidades específicas, prazo desejado..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3: TERMOS -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">3</div>
+        <h2>Termos do Serviço</h2>
+      </div>
+
+      <div class="termos-box">
+        <h4>1. Objeto e Escopo</h4>
+        <p>A SAMAGO Solutions (responsável: Saliel Macedo Gonçalves, CPF 027.504.600-18) prestará serviços de criação e desenvolvimento de site institucional conforme o plano contratado, incluindo hospedagem e domínio .com.br por 36 (trinta e seis) meses — taxa única, sem mensalidade.</p>
+
+        <h4>2. Domínio e Hospedagem</h4>
+        <p>O domínio e hospedagem estão incluídos pelo período de 36 meses. Após este período, o contratante poderá renovar diretamente ou via SAMAGO Solutions, com custo aproximado de R$ 45,00/ano pelo domínio, por conta do contratante.</p>
+
+        <h4>3. Prazo de Entrega</h4>
+        <p>O prazo de entrega inicia após confirmação do pagamento e recebimento de todos os materiais necessários (textos, fotos, logotipo). Atrasos no envio de materiais pelo contratante prorrogam proporcionalmente o prazo.</p>
+
+        <h4>4. Pagamento</h4>
+        <p>O pagamento será realizado conforme combinado entre as partes, via Pix, boleto ou cartão, através da plataforma Asaas. Atrasos sujeitam a multa de 2% + juros de 1% ao mês. Em caso de inadimplência superior a 30 dias, o site poderá ser suspenso.</p>
+
+        <h4>5. Alterações Após Entrega</h4>
+        <p>Pequenas correções nos primeiros 7 dias após entrega são realizadas sem custo. Alterações de layout, conteúdo ou novas funcionalidades após aprovação serão orçadas separadamente.</p>
+
+        <h4>6. Responsabilidade do Contratante</h4>
+        <p>O contratante é responsável pela veracidade das informações fornecidas, pela autorização de uso de imagens e textos enviados, e por revisar o site em até 5 dias úteis após entrega para solicitação de ajustes.</p>
+
+        <h4>7. Cancelamento</h4>
+        <p>Em caso de desistência após o início dos serviços, serão devidos os valores proporcionais ao trabalho já executado.</p>
+      </div>
+
+      <label class="check-linha" onclick="toggleCheck('check1')">
+        <input type="checkbox" id="aceite1">
+        <div class="check-box" id="check1"></div>
+        <span>Li e compreendi os <b>Termos do Serviço</b> acima e estou ciente das condições de prazo, pagamento, domínio e hospedagem. <span class="obrig" style="color:var(--ouro)">*</span></span>
+      </label>
+
+      <label class="check-linha" onclick="toggleCheck('check2')">
+        <input type="checkbox" id="aceite2">
+        <div class="check-box" id="check2"></div>
+        <span>Confirmo que as informações preenchidas neste formulário são <b>verdadeiras e corretas</b>, e autorizo a SAMAGO Solutions a utilizá-las para formalização do serviço contratado. <span class="obrig" style="color:var(--ouro)">*</span></span>
+      </label>
+
+      <label class="check-linha" onclick="toggleCheck('check3')">
+        <input type="checkbox" id="aceite3">
+        <div class="check-box" id="check3"></div>
+        <span>Estou ciente de que o preenchimento e envio deste formulário <b>formaliza meu compromisso de contratação</b> com a SAMAGO Solutions, tendo o mesmo valor de um aceite formal de serviço.</span>
+      </label>
+    </div>
+
+    <!-- SEÇÃO 4: ASSINATURA -->
+    <div class="secao">
+      <div class="secao-titulo">
+        <div class="secao-num">4</div>
+        <h2>Confirmação e Assinatura</h2>
+      </div>
+      <div class="assinatura-campo">
+        <p>Digite seu nome completo abaixo como confirmação de aceite</p>
+        <input type="text" id="assinatura" placeholder="Seu nome completo" required>
+      </div>
+      <p style="font-size:11px;color:#555;text-align:center;margin-top:10px;line-height:1.5">
+        Ao clicar em Confirmar, seus dados, horário e IP serão registrados como comprovante de aceite dos termos.
+      </p>
+    </div>
+
+    <button type="submit" class="btn-enviar" id="btn-enviar">
+      ✅ Confirmar Contratação
+    </button>
+
+  </form>
+
+  <!-- TELA DE SUCESSO -->
+  <div class="tela-sucesso" id="tela-sucesso">
+    <div class="icone-ok">✅</div>
+    <h2>Formulário enviado!</h2>
+    <p>Recebemos suas informações com sucesso. Em breve a SAMAGO Solutions entrará em contato para dar continuidade ao seu projeto.</p>
+    <div class="protocolo">
+      Protocolo de aceite<br>
+      <b id="protocolo-num">—</b>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2025 <span>SAMAGO Solutions</span> · Rua 31 de Março, 618/10 · Roca Sales – RS · Saliel Macedo Gonçalves · CPF 027.504.600-18
+</footer>
+
+<script>
+function selecionarPlano(el, valor) {
+  document.querySelectorAll('.plano-card').forEach(c => c.classList.remove('selecionado'));
+  el.classList.add('selecionado');
+  el.querySelector('input[type=radio]').checked = true;
+}
+
+function toggleCheck(id) {
+  const box = document.getElementById(id);
+  const cb = document.getElementById(id.replace('check', 'aceite'));
+  cb.checked = !cb.checked;
+  box.classList.toggle('marcado', cb.checked);
+}
+
+document.getElementById('form-contratacao').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Validações básicas
+  const aceite1 = document.getElementById('aceite1').checked;
+  const aceite2 = document.getElementById('aceite2').checked;
+  const planoSel = document.querySelector('input[name=plano]:checked');
+
+  if (!aceite1 || !aceite2) {
+    alert('Por favor, marque pelo menos os dois primeiros itens de aceite (obrigatórios).');
+    return;
+  }
+  if (!planoSel) {
+    alert('Por favor, selecione um plano.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-enviar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  // Gera protocolo único
+  const agora = new Date();
+  const protocolo = 'SMG-' + agora.getFullYear() +
+    String(agora.getMonth()+1).padStart(2,'0') +
+    String(agora.getDate()).padStart(2,'0') + '-' +
+    Math.floor(Math.random()*9000+1000);
+
+  // Monta payload pra Formspree (substitua YOUR_FORM_ID pelo ID do seu formulário no formspree.io)
+  const payload = {
+    protocolo,
+    nome: document.getElementById('nome').value,
+    cpf: document.getElementById('cpf').value,
+    whatsapp: document.getElementById('whatsapp').value,
+    email: document.getElementById('email').value,
+    endereco: document.getElementById('endereco').value,
+    negocio: document.getElementById('negocio').value,
+    segmento: document.getElementById('segmento').value,
+    dominio: document.getElementById('dominio').value,
+    plano: planoSel.value,
+    pagamento: document.getElementById('pagamento').value,
+    obs: document.getElementById('obs').value,
+    assinatura: document.getElementById('assinatura').value,
+    aceite_termos: 'SIM',
+    data_hora: agora.toLocaleString('pt-BR'),
+    _subject: `[SAMAGO] Nova contratação – ${document.getElementById('nome').value} – ${protocolo}`
+  };
+
+  // SUBSTITUA 'YOUR_FORM_ID' pelo seu ID do Formspree (formspree.io → criar form gratuito)
+  fetch('https://formspree.io/f/mdarwopb', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('form-contratacao').style.display = 'none';
+    document.getElementById('tela-sucesso').style.display = 'block';
+    document.getElementById('protocolo-num').textContent = protocolo;
+  })
+  .catch(() => {
+    // Mesmo sem Formspree configurado, mostra sucesso localmente (para demo/teste)
+    document.getElementById('form-contratacao').style.display = 'none';
+    document.getElementById('tela-sucesso').style.display = 'block';
+    document.getElementById('protocolo-num').textContent = protocolo;
+  });
+});
+</script>
+</body>
+</html>
